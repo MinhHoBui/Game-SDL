@@ -1,0 +1,42 @@
+# depslib dependency file v1.0
+1678427303 source:d:\code\project\gameproject\global.cpp
+	"LTexture.hpp"
+	"Global.hpp"
+	<iostream>
+	<string>
+	<fstream>
+	<SDL.h>
+	<SDL_image.h>
+
+1678426648 d:\code\project\gameproject\ltexture.hpp
+	<iostream>
+	<string>
+	<fstream>
+	<SDL.h>
+	<SDL_image.h>
+
+1678428352 d:\code\project\gameproject\global.hpp
+	"LTexture.hpp"
+	<iostream>
+	<string>
+	<fstream>
+	<SDL.h>
+	<SDL_image.h>
+
+1678429852 source:d:\code\project\gameproject\main.cpp
+	"LTexture.hpp"
+	"Global.hpp"
+	"UTIL.hpp"
+	<iostream>
+	<string>
+	<fstream>
+	<SDL.h>
+	<SDL_image.h>
+
+1678427824 d:\code\project\gameproject\util.hpp
+	<iostream>
+	<string>
+	<fstream>
+	<SDL.h>
+	<SDL_image.h>
+

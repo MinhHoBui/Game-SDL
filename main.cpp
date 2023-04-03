@@ -1,5 +1,6 @@
 #include "LTexture.hpp"
 #include "Global.hpp"
+#include "Constants.hpp"
 #include "UTIL.hpp"
 
 #include <iostream>

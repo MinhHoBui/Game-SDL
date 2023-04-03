@@ -1,5 +1,9 @@
 #pragma once
 
+#include "LTexture.hpp"
+#include "Global.hpp"
+#include "Constants.hpp"
+
 #include <iostream>
 #include <string>
 #include <fstream>

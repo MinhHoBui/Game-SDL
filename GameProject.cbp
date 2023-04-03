@@ -31,10 +31,13 @@
 		<Compiler>
 			<Add option="-Wall" />
 		</Compiler>
+		<Unit filename="Constants.hpp" />
 		<Unit filename="Global.cpp" />
 		<Unit filename="Global.hpp" />
 		<Unit filename="LTexture.cpp" />
 		<Unit filename="LTexture.hpp" />
+		<Unit filename="Player.cpp" />
+		<Unit filename="Player.hpp" />
 		<Unit filename="UTIL.cpp" />
 		<Unit filename="UTIL.hpp" />
 		<Unit filename="main.cpp" />

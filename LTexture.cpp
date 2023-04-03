@@ -1,5 +1,4 @@
 #include "LTexture.hpp"
-#include "Global.hpp"
 
 #include <iostream>
 #include <string>
@@ -75,25 +74,8 @@ void LTexture::free()
     }
 }
 
-void LTexture::setColor( Uint8 red , Uint8 green , Uint8 blue )
-{
-    //Set coloring RGB
-    SDL_SetTextureColorMod ( mTexture , red , green , blue );
-}
 
-void LTexture::setBlendMode( SDL_BlendMode blending )
-{
-    //Modulate blend factor
-    SDL_SetTextureBlendMode ( mTexture , blending );
-}
-
-void LTexture::setAlpha( Uint8 alpha )
-{
-    //Modulate alpha factor
-    SDL_SetTextureAlphaMod ( mTexture , alpha );
-}
-
-void LTexture::render( int x , int y , SDL_Rect* clip , double angle , SDL_Point* center , SDL_RendererFlip flip )
+void LTexture::render( int x , int y , SDL_Rect* clip )
 {
     //Set rendering space and render it to screen
     SDL_Rect renderQuad = { x , y , mWidth , mHeight };
@@ -106,7 +88,7 @@ void LTexture::render( int x , int y , SDL_Rect* clip , double angle , SDL_Point
     }
 
     //Render it to the screen
-    SDL_RenderCopyEx ( gRenderer , mTexture , clip , &renderQuad , angle , center , flip );
+    SDL_RenderCopy ( gRenderer , mTexture , clip , &renderQuad );
 }
 
 int LTexture::getWidth()

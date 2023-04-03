@@ -1,5 +1,3 @@
-#include "LTexture.hpp"
-#include "Global.hpp"
 #include "UTIL.hpp"
 
 #include <iostream>
@@ -69,18 +67,46 @@ bool loadMedia()
     //Loading success flag
     bool success = true;
 
-    //Load player texture
-    if ( !gPlayerTexture.loadFromFile ( ) )
+    //Load player running texture
+    if ( !gRunTexture.loadFromFile ( "assets/player/_Run.png") )
     {
-        cout << "Unable to load player texture!" << endl;
+        cout << "Unable to load player running texture!" << endl;
         success = false;
     }
-
-    //Load background texture
-    if ( !gBGTexture.loadFromFile ( ) )
+    else
     {
-        cout << "Unable to load background image!" << endl;
+        for (int i = 0 ; i < RUN_ANIMATION_FRAMES ; i++ )
+        {
+            gRunClips[ i ] = { i * 120 , 0 , 120 , 80 };
+        }
+    }
+
+    //Load player jumping texture
+    if ( !gJumpTexture.loadFromFile ( "assets/player/_Jump.png") )
+    {
+        cout << "Unable to load player jumping texture!" << endl;
         success = false;
+    }
+    else
+    {
+        for ( int i = 0 ; i < JUMP_ANIMATION_FRAMES ; i++ )
+        {
+            gJumpClips[ i ] = { i * 120 , 0 , 120 , 80 };
+        }
+    }
+
+    //Load player falling texture
+    if ( !gFallTexture.loadFromFile ( "assets/player/_Fall.png") )
+    {
+        cout << "Unable to load player falling texture!" << endl;
+        success = false;
+    }
+    else
+    {
+        for ( int i = 0 ; i < FALL_ANIMATION_FRAMES ; i++ )
+        {
+            gFallClips[ i ] = { i * 120 , 0 , 120 , 80 };
+        }
     }
 
     return success;
@@ -89,8 +115,9 @@ bool loadMedia()
 void close()
 {
     //Free texture resource
-    gBGTexture.free();
-    gPlayerTexture.free();
+    gRunTexture.free();
+    gJumpTexture.free();
+    gFallTexture.free();
 
     //Destroy window
     SDL_DestroyWindow ( gWindow );

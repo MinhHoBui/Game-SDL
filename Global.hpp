@@ -1,6 +1,7 @@
 #pragma once
 
 #include "LTexture.hpp"
+#include "Constants.hpp"
 
 #include <iostream>
 #include <string>
@@ -10,16 +11,20 @@
 
 using namespace std;
 
-//The window dimenions
-const int SCREEN_WIDTH = 1280;
-const int SCREEN_HEIGHT = 720;
-
 //The window will be rendered
 extern SDL_Window* gWindow;
 
 //The renderer of the window
 extern SDL_Renderer* gRenderer;
 
-//Scene texture
-extern LTexture gBGTexture;
-extern LTexture gPlayerTexture;
+//Run texture
+extern LTexture gRunTexture;
+extern SDL_Rect gRunClips [ RUN_ANIMATION_FRAMES ];
+
+//Jump texture
+extern LTexture gJumpTexture;
+extern SDL_Rect gJumpClips [ JUMP_ANIMATION_FRAMES ];
+
+//Fall texture
+extern LTexture gFallTexture;
+extern SDL_Rect gFallClips [ FALL_ANIMATION_FRAMES ];

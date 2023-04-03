@@ -1,5 +1,4 @@
-#include "LTexture.hpp"
-#include "Global.hpp"
+#include "Constants.hpp"
 
 #include <iostream>
 #include <string>
@@ -13,6 +12,11 @@ SDL_Window* gWindow = NULL;
 
 SDL_Renderer* gRenderer = NULL;
 
-LTexture gBGTexture;
+LTexture gRunTexture;
+SDL_Rect gRunClips [ RUN_ANIMATION_FRAMES ];
 
-LTexture gPlayerTexture;
+LTexture gJumpTexture;
+SDL_Rect gJumpClips [ JUMP_ANIMATION_FRAMES ];
+
+LTexture gFallTexture;
+SDL_Rect gFallClips [ FALL_ANIMATION_FRAMES ];

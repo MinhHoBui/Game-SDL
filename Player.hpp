@@ -4,16 +4,6 @@
 #include "Constants.hpp"
 #include "LTexture.hpp"
 
-#include <iostream>
-#include <string>
-#include <fstream>
-#include <SDL.h>
-#include <SDL_image.h>
-
-#define JUMP 1
-#define FALL 2
-#define RUN 0
-
 class Player
 {
 public:
@@ -43,6 +33,8 @@ private:
     int mPosX, mPosY;
 
     int status;
+
+    bool ground, jumping , falling;
 
     int runCounter, jumpCounter, fallCounter;
 

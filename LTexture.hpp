@@ -1,12 +1,7 @@
 #pragma once
 
 #include "Global.hpp"
-
-#include <iostream>
-#include <string>
-#include <fstream>
-#include <SDL.h>
-#include <SDL_image.h>
+#include "Constants.hpp"
 
 using namespace std;
 
@@ -22,6 +17,9 @@ public:
 
     //Load image at specified path
     bool loadFromFile ( string path );
+
+    //Creates image from font string
+    bool loadFromRenderedText( string textureText, SDL_Color textColor );
 
     //Deallocate texture
     void free();

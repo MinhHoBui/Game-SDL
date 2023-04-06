@@ -8,7 +8,9 @@ Player::Player()
 
     mPosY = GROUND;
 
-    status = RUN;
+    ground = true;
+
+    falling = jumping = false;
 
     runCounter = jumpCounter = fallCounter = 0;
 }
@@ -28,7 +30,8 @@ void Player::handleEvent ( SDL_Event& e )
             {
                 if ( OnGround() )
                 {
-                    status = JUMP;
+                    ground = false;
+                    jumping = true;
                 }
             }
         }
@@ -38,7 +41,7 @@ void Player::handleEvent ( SDL_Event& e )
 void Player::move()
 {
     //player jump
-    if ( status == JUMP && mPosY >= MAX_HEIGHT )
+    if ( jumping && mPosY >= MAX_HEIGHT )
     {
         mPosY -= JUMP_VEL;
     }
@@ -46,20 +49,27 @@ void Player::move()
     //if player reaches the max height
     if ( mPosY <= MAX_HEIGHT )
     {
-        status = FALL;
+        jumping = false;
+        falling = true;
     }
 
     //player falling
-    if ( status == FALL && mPosY < GROUND )
+    if ( falling && mPosY < GROUND )
     {
         mPosY += FALL_VEL;
+    }
+
+    if ( OnGround() )
+    {
+        falling = false;
+        ground = true;
     }
 }
 
 void Player::render()
 {
     //render running animation
-    if ( status == RUN )
+    if ( ground )
     {
         gRunTexture.render( mPosX , mPosY , &gRunClips[ runCounter / 10 ] );
         runCounter++;
@@ -68,7 +78,7 @@ void Player::render()
     }
 
     //render jumping animation
-    if ( status == JUMP )
+    if ( jumping )
     {
         gJumpTexture.render( mPosX , mPosY , &gJumpClips[ jumpCounter / 3 ] );
         jumpCounter++;
@@ -76,11 +86,11 @@ void Player::render()
     }
 
     //render falling animation
-    if ( status == FALL )
+    if ( falling )
     {
-        gFallTexture.render( mPosX , mPosY , &gFallClips[ fallingCounter / 3 ] );
-        fallingCounter++;
-        if ( fallingCounter / 3 >= FALL_ANIMATION_FRAMES ) fallingCounter = 0;
+        gFallTexture.render( mPosX , mPosY , &gFallClips[ fallCounter / 3 ] );
+        fallCounter++;
+        if ( fallCounter / 3 >= FALL_ANIMATION_FRAMES ) fallCounter = 0;
     }
 }
 

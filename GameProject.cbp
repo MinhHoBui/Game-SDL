@@ -31,9 +31,12 @@
 		<Compiler>
 			<Add option="-Wall" />
 		</Compiler>
+		<Unit filename="Button.hpp" />
 		<Unit filename="Constants.hpp" />
 		<Unit filename="Global.cpp" />
 		<Unit filename="Global.hpp" />
+		<Unit filename="LButton.cpp" />
+		<Unit filename="LButton.hpp" />
 		<Unit filename="LTexture.cpp" />
 		<Unit filename="LTexture.hpp" />
 		<Unit filename="Player.cpp" />

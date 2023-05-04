@@ -1,9 +1,11 @@
 #pragma once
 
 #include <iostream>
-#include <vector>
-#include <string>
 #include <fstream>
+#include <sstream>
+#include <string>
+#include <vector>
+#include <time.h>
 #include <SDL.h>
 #include <SDL_image.h>
 #include <SDL_ttf.h>
@@ -11,29 +13,30 @@
 
 #define BASE_OFFSET_SPEED 0
 
-#define MENU_BUTTON 0
-#define INGAME_BUTTON 1
-#define UI_BUTTON 2
+#define LOOP -1
+#define NOT_LOOP 0
 
 using namespace std;
 
 //The window dimensions
-const int SCREEN_WIDTH = 928;
-const int SCREEN_HEIGHT = 675;
+const int SCREEN_WIDTH = 1152;
+const int SCREEN_HEIGHT = 648;
 
 //player velocity
-const int JUMP_VEL = 8;
-const int FALL_VEL = 8;
-const int MAX_HEIGHT = 315;
-const int GROUND = 490;
+const int JUMP_VEL = 4;
+const int FALL_VEL = 4;
+static int MAX_HEIGHT = 250;
+static int GROUND = 425;
 
 //animation frame
 const int RUN_ANIMATION_FRAMES = 10;
 const int JUMP_ANIMATION_FRAMES = 3;
 const int FALL_ANIMATION_FRAMES = 3;
+const int CROUCH_ANIMATION_FRAMES = 8;
+const int BAT_FRAMES = 6;
 
 //the background layers and its offset speed
-const int BACKGROUND_LAYERS = 10;
+const int BACKGROUND_LAYERS = 7;
 
 const double LAYER_1_SPEED = 0.0;
 const double LAYER_2_SPEED = 0.25;
@@ -42,34 +45,22 @@ const double LAYER_4_SPEED = 0.75;
 const double LAYER_5_SPEED = 1.0;
 const double LAYER_6_SPEED = 1.25;
 const double LAYER_7_SPEED = 1.5;
-const double LAYER_8_SPEED = 1.75;
-const double LAYER_9_SPEED = 2.0;
-const double LAYER_10_SPEED = 2.25;
 
 //the ground and its offset speed
 const int GROUND_SPEED = 2;
+const int ENEMY_SPEED = 2;
 const int acceleration = 0;
 
-//button dimensions
-const int MENU_BUTTON_WIDTH = 190;
-const int MENU_BUTTON_HEIGHT = 80;
-const int INGAME_BUTTON_WIDTH = 80;
-const int INGAME_BUTTON_HEIGHT = 80;
-const int UI_BUTTON_WIDTH = 80;
-const int UI_BUTTON_HEIGHT = 80;
-
-//Buttons constants
-const int TOTAL_BUTTON = 4;
-
-enum LButtonSprite
-{
-    BUTTON_SPRITE_MOUSE_OUT = 0,
-    BUTTON_SPRITE_MOUSE_OVER_MOTION = 1,
-    BUTTON_SPRITE_MOUSE_DOWN = 2,
-    BUTTON_SPRITE_MOUSE_UP = 3,
-    BUTTON_SPRITE_TOTAL = 4
-};
+//total button
+const int TOTAL_BUTTON = 2;
 
 //Frame rate
-const int FPS = 120;
-const int FrameDelay = 1000 / FPS;
+//const int FPS = 60;
+//const int FrameDelay = 1000 / FPS;
+
+enum ButtonSprite
+{
+	BUTTON_NOT_PRESSED = 0,
+	BUTTON_PRESSED = 1,
+	BUTTON_TOTAL = 2
+};

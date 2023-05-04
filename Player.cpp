@@ -2,17 +2,29 @@
 
 using namespace std;
 
-Player::Player()
+Player::Player( int type )
 {
-    mPosX = SCREEN_WIDTH - 700;
+    if ( type == 0 )
+    {
+        mPosX = 250;
+        GROUND = 425;
+        MAX_HEIGHT = 250;
+        mPosY = GROUND;
+    }
 
-    mPosY = GROUND;
+    if ( type == 1 )
+    {
+        mPosX = 856;
+        GROUND = 285;
+        MAX_HEIGHT = 110;
+        mPosY = GROUND;
+    }
 
-    ground = true;
+    running = true;
 
-    falling = jumping = false;
+    falling = jumping = crouching = false;
 
-    runCounter = jumpCounter = fallCounter = 0;
+    runCounter = jumpCounter = fallCounter = crouchCounter = 0;
 }
 
 bool Player::OnGround()
@@ -20,7 +32,7 @@ bool Player::OnGround()
     return mPosY == GROUND;
 }
 
-void Player::handleEvent ( SDL_Event& e )
+void Player::handleEvent ( SDL_Event& e , Mix_Chunk* gJump )
 {
     if ( e.type == SDL_KEYDOWN && e.key.repeat == 0 )
     {
@@ -30,9 +42,37 @@ void Player::handleEvent ( SDL_Event& e )
             {
                 if ( OnGround() )
                 {
-                    ground = false;
+                    Mix_PlayChannel ( -1 , gJump , NOT_LOOP );
+                    running = false;
                     jumping = true;
+                    crouching = false;
                 }
+                break;
+            }
+        case SDLK_s:
+            {
+                if ( OnGround() )
+                {
+                    running = false;
+                    crouching = true;
+                }
+                break;
+            }
+        }
+    }
+
+    else if ( e.type == SDL_KEYUP && e.key.repeat == 0 )
+    {
+        switch ( e.key.keysym.sym )
+        {
+        case SDLK_s:
+            {
+                if ( OnGround() )
+                {
+                    crouching = false;
+                    running = true;
+                }
+                break;
             }
         }
     }
@@ -51,6 +91,7 @@ void Player::move()
     {
         jumping = false;
         falling = true;
+        running = false;
     }
 
     //player falling
@@ -61,15 +102,18 @@ void Player::move()
 
     if ( OnGround() )
     {
-        falling = false;
-        ground = true;
+        if ( falling )
+        {
+            falling = false;
+            running = true;
+            crouching = false;
+        }
     }
 }
 
 void Player::render()
 {
-    //render running animation
-    if ( ground )
+    if ( running )
     {
         gRunTexture.render( mPosX , mPosY , &gRunClips[ runCounter / 10 ] );
         runCounter++;
@@ -77,7 +121,6 @@ void Player::render()
 
     }
 
-    //render jumping animation
     if ( jumping )
     {
         gJumpTexture.render( mPosX , mPosY , &gJumpClips[ jumpCounter / 3 ] );
@@ -85,13 +128,35 @@ void Player::render()
         if ( jumpCounter / 3 >= JUMP_ANIMATION_FRAMES ) jumpCounter = 0;
     }
 
-    //render falling animation
     if ( falling )
     {
         gFallTexture.render( mPosX , mPosY , &gFallClips[ fallCounter / 3 ] );
         fallCounter++;
         if ( fallCounter / 3 >= FALL_ANIMATION_FRAMES ) fallCounter = 0;
     }
+
+    if ( crouching )
+    {
+        gCrouchTexture.render( mPosX , mPosY , &gCrouchClips[ crouchCounter / 8 ] );
+        crouchCounter++;
+        if ( crouchCounter / 8 >= CROUCH_ANIMATION_FRAMES ) crouchCounter = 0;
+    }
+}
+
+int Player::getStatus()
+{
+    int status;
+
+    if ( running || jumping || falling )
+    {
+        status = NORMAL;
+    }
+    else if ( crouching )
+    {
+        status = CROUCH;
+    }
+
+    return status;
 }
 
 int Player::getPosX()
@@ -99,7 +164,7 @@ int Player::getPosX()
     return mPosX;
 }
 
-int Player::getposY()
+int Player::getPosY()
 {
     return mPosY;
 }

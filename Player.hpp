@@ -1,41 +1,35 @@
 #pragma once
 
+#include "LTexture.hpp"
 #include "Global.hpp"
 #include "Constants.hpp"
-#include "LTexture.hpp"
+
+#define NORMAL 0
+#define CROUCH 1
 
 class Player
 {
 public:
-    //Initialize the variables
-    Player();
+    Player( int type = 0 );
 
-    //Check if player is on ground
     bool OnGround();
 
-    //Handle the key presses and adjust velocity of player
-    void handleEvent ( SDL_Event& e );
+    void handleEvent ( SDL_Event& e , Mix_Chunk* gJump = nullptr );
 
-    //Player move
     void move();
 
-    //Show the player on the screen
     void render();
 
-    //Get position X
+    int getStatus();
+
     int getPosX();
-
-    //Get position Y
-    int getposY();
-
+    int getPosY();
 
 private:
     int mPosX, mPosY;
 
-    int status;
+    bool running, jumping , falling , crouching;
 
-    bool ground, jumping , falling;
-
-    int runCounter, jumpCounter, fallCounter;
+    int runCounter , jumpCounter , fallCounter , crouchCounter;
 
 };
